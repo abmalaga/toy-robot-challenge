@@ -56,6 +56,9 @@ export const COMMAND_DEGREE = {
   RIGHT: 90,
 };
 
+/** @constant Object compilation of the possible error messages
+    @type {object}
+*/
 export const ERROR_MESSAGES = {
   INVALID_COMMAND: "Please enter a valid command",
   NOT_PLACED: "Robot is not placed in the table yet",
