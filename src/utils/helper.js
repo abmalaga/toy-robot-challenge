@@ -55,7 +55,9 @@ export function evaluateCommand(command, currRobotCoords) {
           shouldDoCommand,
           commandString,
           ...placedCoordinates,
-          message: shouldDoCommand ? command : "Invalid coordinates given",
+          message: shouldDoCommand
+            ? command
+            : constant.ERROR_MESSAGES.INVALID_COORDS,
         };
       case constant.COMMAND_STRINGS.MOVE:
         return moveRobot(currRobotCoords);
