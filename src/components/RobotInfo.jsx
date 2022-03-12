@@ -6,13 +6,13 @@
  * )
  */
 function RobotInfo(props) {
-  const { x, y, f } = props.robotCoordinates;
+  const { x, y, f, placed } = props.robotCoordinates;
   return (
     <>
       <h2>Toy Robot Challenge</h2>
       <p>
         Robot is currently{" "}
-        {x !== null && y !== null && f ? (
+        {placed ? (
           <code>{`in ${x},${y},facing ${f}`}</code>
         ) : (
           <code>not in the table</code>
