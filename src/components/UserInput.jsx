@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 /**
  * User input component for the user to type the commands
  * @component
@@ -6,15 +8,27 @@
  * )
  */
 function UserInput(props) {
-  const { userTextValue, onChangeInput, onEnterCommand } = props;
+  const { onEnterCommand } = props;
+  const [userText, setUserText] = useState("");
+
+  /**
+   * Function that handles onchange of input
+   * @param {event} e - event of the input
+   */
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      onEnterCommand(e);
+      setUserText("");
+    }
+  };
 
   return (
     <input
       alt="Command Input"
       type="text"
-      value={userTextValue}
-      onChange={(e) => onChangeInput(e.target.value.toUpperCase())}
-      onKeyPress={(e) => onEnterCommand(e)}
+      value={userText}
+      onChange={(e) => setUserText(e.target.value.toUpperCase())}
+      onKeyPress={(e) => handleEnter(e)}
     />
   );
 }

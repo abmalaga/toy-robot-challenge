@@ -266,7 +266,7 @@ describe("Evaluate commands", () => {
         })
       ).toEqual({
         shouldDoCommand: true,
-        message: "X: 4, Y: 2, FACING: EAST",
+        message: "4,2,EAST",
         commandString: constant.COMMAND_STRINGS.REPORT,
       });
     });

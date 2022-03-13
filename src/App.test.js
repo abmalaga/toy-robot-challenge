@@ -7,17 +7,12 @@ afterEach(() => {
 
 const setupAppComponent = () => {
   render(<App />);
-  const robotInfo = screen.getByText(/Robot is currently/i);
   const inputElement = screen.getByAltText("Command Input");
   const consoleInfo = screen.getByText(/Entered commands will show here/i);
-  return { robotInfo, inputElement, consoleInfo };
+  return { inputElement, consoleInfo };
 };
 
 describe("Initial state of the App upon on load", () => {
-  test("Robot Initial information: Not on the table", () => {
-    const { robotInfo } = setupAppComponent();
-    expect(robotInfo).toBeInTheDocument();
-  });
   test("Initial input text", () => {
     const { inputElement } = setupAppComponent();
     expect(inputElement).toBeInTheDocument();
@@ -36,27 +31,23 @@ describe("User inputs a command", () => {
   });
 
   test("User inputs an invalid command and evaluated", () => {
-    const { inputElement, consoleInfo, robotInfo } = setupAppComponent();
+    const { inputElement, consoleInfo } = setupAppComponent();
     fireEvent.change(inputElement, { target: { value: "sample command" } });
     fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
     expect(consoleInfo).toHaveTextContent("Please enter a valid command");
-    expect(robotInfo).toHaveTextContent("Robot is currently not on the table");
     expect(inputElement.value).toBe("");
   });
 
   test("User inputs PLACE 0,4,NORTH", () => {
-    const { inputElement, consoleInfo, robotInfo } = setupAppComponent();
+    const { inputElement, consoleInfo } = setupAppComponent();
     fireEvent.change(inputElement, { target: { value: "place 0,4,north" } });
     fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
     expect(consoleInfo).toHaveTextContent("PLACE 0,4,NORTH");
-    expect(robotInfo).toHaveTextContent(
-      "Robot is currently in 0,4,facing NORTH"
-    );
     expect(inputElement.value).toBe("");
   });
 
   test("User MOVES or Left or RIGHT or report without the toy on the table", () => {
-    const { inputElement, consoleInfo, robotInfo } = setupAppComponent();
+    const { inputElement, consoleInfo } = setupAppComponent();
     //User inputs MOVE
     fireEvent.change(inputElement, { target: { value: "move" } });
     expect(inputElement.value).toBe("MOVE");
@@ -64,7 +55,6 @@ describe("User inputs a command", () => {
     expect(consoleInfo).toHaveTextContent(
       "Robot is not placed in the table yet"
     );
-    expect(robotInfo).toHaveTextContent("Robot is currently not on the table");
     expect(inputElement.value).toBe("");
     //User inputs LEFT
     fireEvent.change(inputElement, { target: { value: "left" } });
@@ -73,7 +63,6 @@ describe("User inputs a command", () => {
     expect(consoleInfo).toHaveTextContent(
       "Robot is not placed in the table yet"
     );
-    expect(robotInfo).toHaveTextContent("Robot is currently not on the table");
     expect(inputElement.value).toBe("");
     //User inputs RIGHT
     fireEvent.change(inputElement, { target: { value: "right" } });
@@ -82,7 +71,6 @@ describe("User inputs a command", () => {
     expect(consoleInfo).toHaveTextContent(
       "Robot is not placed in the table yet"
     );
-    expect(robotInfo).toHaveTextContent("Robot is currently not on the table");
     expect(inputElement.value).toBe("");
     //User inputs report
     fireEvent.change(inputElement, { target: { value: "report" } });
@@ -91,14 +79,13 @@ describe("User inputs a command", () => {
     expect(consoleInfo).toHaveTextContent(
       "Robot is not placed in the table yet"
     );
-    expect(robotInfo).toHaveTextContent("Robot is currently not on the table");
     expect(inputElement.value).toBe("");
   });
 });
 
 describe("End to end tests", () => {
   test("Example input consecutive commands A", () => {
-    const { inputElement, consoleInfo, robotInfo } = setupAppComponent();
+    const { inputElement, consoleInfo } = setupAppComponent();
     //PLACE 0,0,NORTH
     fireEvent.change(inputElement, { target: { value: "place 0,0,north" } });
     fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
@@ -108,15 +95,12 @@ describe("End to end tests", () => {
     //REPORT
     fireEvent.change(inputElement, { target: { value: "report" } });
     fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
-    expect(consoleInfo).toHaveTextContent("X: 0, Y: 1, FACING: NORTH");
-    expect(robotInfo).toHaveTextContent(
-      "Robot is currently in 0,1,facing NORTH"
-    );
+    expect(consoleInfo).toHaveTextContent("0,1,NORTH");
     expect(inputElement.value).toBe("");
   });
 
   test("Example input consecutive commands B", () => {
-    const { inputElement, consoleInfo, robotInfo } = setupAppComponent();
+    const { inputElement, consoleInfo } = setupAppComponent();
     //PLACE 0,0,NORTH
     fireEvent.change(inputElement, { target: { value: "place 0,0,north" } });
     fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
@@ -126,15 +110,12 @@ describe("End to end tests", () => {
     //REPORT
     fireEvent.change(inputElement, { target: { value: "report" } });
     fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
-    expect(consoleInfo).toHaveTextContent("X: 0, Y: 0, FACING: WEST");
-    expect(robotInfo).toHaveTextContent(
-      "Robot is currently in 0,0,facing WEST"
-    );
+    expect(consoleInfo).toHaveTextContent("0,0,WEST");
     expect(inputElement.value).toBe("");
   });
 
   test("Example input consecutive commands C", () => {
-    const { inputElement, consoleInfo, robotInfo } = setupAppComponent();
+    const { inputElement, consoleInfo } = setupAppComponent();
     //PLACE 1,2,EAST
     fireEvent.change(inputElement, { target: { value: "place 1,2,east" } });
     fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
@@ -153,10 +134,7 @@ describe("End to end tests", () => {
     //REPORT
     fireEvent.change(inputElement, { target: { value: "report" } });
     fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
-    expect(consoleInfo).toHaveTextContent("X: 3, Y: 3, FACING: NORTH");
-    expect(robotInfo).toHaveTextContent(
-      "Robot is currently in 3,3,facing NORTH"
-    );
+    expect(consoleInfo).toHaveTextContent("3,3,NORTH");
     expect(inputElement.value).toBe("");
   });
 });

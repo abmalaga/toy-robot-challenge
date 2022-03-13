@@ -27,6 +27,37 @@ body {
   max-height: 20vh;
   min-height: 20vh;
   overflow-y: hidden;
-  font-size: calc(4px + 1.5vmin);
+  font-size: calc(3px + 1.5vmin);
   text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  padding-top: 5%;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto;
+}
+
+.grid-item {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 30px;
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.active.north {
+  border-top: 1px solid red;
+}
+
+.active.east {
+  border-right: 1px solid red;
+}
+
+.active.south {
+  border-bottom: 1px solid red;
+}
+.active.west {
+  border-left: 1px solid red;
 }

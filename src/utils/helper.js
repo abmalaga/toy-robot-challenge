@@ -77,7 +77,7 @@ export function evaluateCommand(command, currRobotCoords) {
         return {
           shouldDoCommand: true,
           commandString,
-          message: `X: ${currRobotCoords.x}, Y: ${currRobotCoords.y}, FACING: ${currRobotCoords.f}`,
+          message: `${currRobotCoords.x},${currRobotCoords.y},${currRobotCoords.f}`,
         };
       default:
         break;
