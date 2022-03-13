@@ -10,6 +10,7 @@ function UserInput(props) {
 
   return (
     <input
+      alt="Command Input"
       type="text"
       value={userTextValue}
       onChange={(e) => onChangeInput(e.target.value.toUpperCase())}

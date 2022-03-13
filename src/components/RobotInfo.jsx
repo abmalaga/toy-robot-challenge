@@ -12,11 +12,7 @@ function RobotInfo(props) {
       <h2>Toy Robot Challenge</h2>
       <p>
         Robot is currently{" "}
-        {placed ? (
-          <code>{`in ${x},${y},facing ${f}`}</code>
-        ) : (
-          <code>not in the table</code>
-        )}
+        {placed ? `in ${x},${y},facing ${f}` : `not on the table`}
       </p>
     </>
   );
