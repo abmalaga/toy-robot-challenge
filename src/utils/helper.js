@@ -43,19 +43,21 @@ export function inBetween(value, upperLimit) {
  * @returns {object} Information about the given command
  */
 export function evaluateCommand(command, currRobotCoords) {
-  const parsedCommand = checkCommand(command, currRobotCoords);
-  if (parsedCommand.valid) {
+  const { valid, message } = checkCommand(command, currRobotCoords);
+  if (valid) {
     const commandString = getCommand(command);
     switch (commandString) {
       case constant.COMMAND_STRINGS.PLACE:
-        const placedCoordinates = getCoordinates(command, commandString);
-        const shouldDoCommand = checkValidCoordinates(placedCoordinates);
+        const { x, y, f } = getCoordinates(command, commandString);
+        const shouldDoCommand = checkValidCoordinates({ x, y });
         return {
           shouldDoCommand,
           commandString,
-          ...placedCoordinates,
+          x,
+          y,
+          f,
           message: shouldDoCommand
-            ? command
+            ? `${constant.COMMAND_STRINGS.PLACE} ${x},${y},${f}`
             : constant.ERROR_MESSAGES.INVALID_COORDS,
         };
       case constant.COMMAND_STRINGS.MOVE:
@@ -82,7 +84,7 @@ export function evaluateCommand(command, currRobotCoords) {
         break;
     }
   } else {
-    return { shouldDoCommand: false, message: parsedCommand.message };
+    return { shouldDoCommand: false, message: message };
   }
 }
 

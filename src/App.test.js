@@ -81,6 +81,16 @@ describe("User inputs a command", () => {
     );
     expect(inputElement.value).toBe("");
   });
+
+  test("User inputs PLACE    3 ,  2  ,  EAST   ", () => {
+    const { inputElement, consoleInfo } = setupAppComponent();
+    fireEvent.change(inputElement, {
+      target: { value: " PLACE    3 ,  2  ,  EAST   " },
+    });
+    fireEvent.keyPress(inputElement, { key: "Enter", code: 13, charCode: 13 });
+    expect(consoleInfo).toHaveTextContent("PLACE 3,2,EAST");
+    expect(inputElement.value).toBe("");
+  });
 });
 
 describe("End to end tests", () => {
