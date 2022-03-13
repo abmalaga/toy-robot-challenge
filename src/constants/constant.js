@@ -10,7 +10,10 @@ export const DIMENSION = {
     @type {array}
 */
 export const VALID_COMMANDS = [
-  new RegExp("^PLACE [0-9]+,+[0-9]+,(NORTH|SOUTH|EAST|WEST)$", "g"),
+  new RegExp(
+    "^PLACE[ ]+[0-9]+[ ]*,[ ]*[0-9]+[ ]*,[ ]*(NORTH|SOUTH|EAST|WEST)[ ]*$",
+    "g"
+  ),
   new RegExp("^MOVE$", "g"),
   new RegExp("^LEFT$", "g"),
   new RegExp("^RIGHT$", "g"),

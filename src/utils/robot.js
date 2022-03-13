@@ -10,29 +10,34 @@ import { checkValidCoordinates, inBetween } from "./helper";
 export function moveRobot(currRobotCoords) {
   const newRobotCoords = { ...currRobotCoords };
   let isValidMove = false;
+  let movedCoords;
   if (checkValidCoordinates(currRobotCoords)) {
     switch (currRobotCoords.f) {
       case constant.DIRECTION_VALUE.NORTH:
-        if (inBetween(parseInt(newRobotCoords.y) + 1, constant.DIMENSION.y)) {
-          newRobotCoords.y = (parseInt(newRobotCoords.y) + 1).toString();
+        movedCoords = parseInt(newRobotCoords.y) + 1;
+        if (inBetween(movedCoords, constant.DIMENSION.y)) {
+          newRobotCoords.y = movedCoords.toString();
           isValidMove = true;
         }
         break;
       case constant.DIRECTION_VALUE.SOUTH:
-        if (inBetween(parseInt(newRobotCoords.y) - 1, constant.DIMENSION.y)) {
-          newRobotCoords.y = (parseInt(newRobotCoords.y) - 1).toString();
+        movedCoords = parseInt(newRobotCoords.y) - 1;
+        if (inBetween(movedCoords, constant.DIMENSION.y)) {
+          newRobotCoords.y = movedCoords.toString();
           isValidMove = true;
         }
         break;
       case constant.DIRECTION_VALUE.EAST:
-        if (inBetween(parseInt(newRobotCoords.x) + 1, constant.DIMENSION.x)) {
-          newRobotCoords.x = (parseInt(newRobotCoords.x) + 1).toString();
+        movedCoords = parseInt(newRobotCoords.x) + 1;
+        if (inBetween(movedCoords, constant.DIMENSION.x)) {
+          newRobotCoords.x = movedCoords.toString();
           isValidMove = true;
         }
         break;
       case constant.DIRECTION_VALUE.WEST:
-        if (inBetween(parseInt(newRobotCoords.x) - 1, constant.DIMENSION.x)) {
-          newRobotCoords.x = (parseInt(newRobotCoords.x) - 1).toString();
+        movedCoords = parseInt(newRobotCoords.x) - 1;
+        if (inBetween(movedCoords, constant.DIMENSION.x)) {
+          newRobotCoords.x = movedCoords.toString();
           isValidMove = true;
         }
         break;

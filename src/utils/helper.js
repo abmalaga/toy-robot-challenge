@@ -8,10 +8,9 @@ import { moveRobot, turnRobot } from "./robot";
  * @returns {boolean} Command given is valid
  */
 function checkValidCommand(command) {
-  const isValidCommand = constant.VALID_COMMANDS.some((validCommand) =>
+  return constant.VALID_COMMANDS.some((validCommand) =>
     command.match(validCommand)
   );
-  return isValidCommand;
 }
 
 /**
@@ -49,7 +48,7 @@ export function evaluateCommand(command, currRobotCoords) {
     const commandString = getCommand(command);
     switch (commandString) {
       case constant.COMMAND_STRINGS.PLACE:
-        const placedCoordinates = getCoordinates(command);
+        const placedCoordinates = getCoordinates(command, commandString);
         const shouldDoCommand = checkValidCoordinates(placedCoordinates);
         return {
           shouldDoCommand,
@@ -119,7 +118,7 @@ function checkCommand(command, currRobotCoords) {
 }
 
 /**
- * Returns the command (PLACE, MOVE, LEFT, RIGHT, REPORt) given by the user
+ * Returns the command (PLACE, MOVE, LEFT, RIGHT, REPORT) given by the user
  * @param {string} command - The command inputted by the user
  * @returns {string} The main command given by the user
  */
@@ -130,10 +129,13 @@ function getCommand(command) {
 /**
  * Returns the command (PLACE, MOVE, LEFT, RIGHT, REPORt) given by the user
  * @param {string} command - The command inputted by the user
+ * @param {string} command - The parsed command checked in the constants
  * @returns {object} The object containing derived x,y, and facing information
  */
-function getCoordinates(command) {
-  const commandCoords = command.split(" ")[1];
-  let [x, y, f] = commandCoords.split(",");
+function getCoordinates(command, commandString = "") {
+  let [x, y, f] = command
+    .replace(commandString, "")
+    .split(",")
+    .map((coord) => coord.trim());
   return { x, y, f };
 }
