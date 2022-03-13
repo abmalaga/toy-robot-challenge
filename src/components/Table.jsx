@@ -11,17 +11,19 @@ function Table(props) {
 
   /**
    * Function that checks if the cell is active
-   * @param {event} e - event of the input
+   * @param {event} col - column number of the current cell to evaluate
+   * @param {event} row - row number of the current cell to evaluate
+   * @returns {string} Classname to be added to the active cell
    */
-  const isCellActive = (row, col) => {
-    return placed && parseInt(x) === row && parseInt(y) === col
+  const isCellActive = (col, row) => {
+    return placed && parseInt(x) === col && parseInt(y) === row
       ? `active ${f.toLowerCase()}`
       : "";
   };
 
   /**
    * Function that returns the div cells
-   * @param {event} e - event of the input
+   * @returns {object} Array of the table cells
    */
   const getDivCells = () => {
     let divCells = [];
@@ -30,7 +32,6 @@ function Table(props) {
         divCells.push(
           <div
             key={`${col},${row}`}
-            id={`${col},${row}`}
             className={`grid-item ${isCellActive(col, row)}`}
           />
         );
