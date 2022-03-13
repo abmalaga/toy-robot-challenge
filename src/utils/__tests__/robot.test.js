@@ -1,5 +1,5 @@
-import { moveRobot, turnRobot } from "../utils/robot";
-import * as constant from "../constants/constant";
+import { moveRobot, turnRobot } from "../robot";
+import * as constant from "../../constants/constant";
 
 describe("Moving the robot", () => {
   test("Moves the robot facing north", () => {

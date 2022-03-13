@@ -1,10 +1,6 @@
-import * as constant from "../constants/constant";
+import * as constant from "../../constants/constant";
 
-import {
-  evaluateCommand,
-  inBetween,
-  checkValidCoordinates,
-} from "../utils/helper";
+import { evaluateCommand, inBetween, checkValidCoordinates } from "../helper";
 
 describe("Checking if a number is greater or equal to 0 and less than upper limit", () => {
   test("Number is greater than equal to 0 and less than upper limit(x)", () => {
